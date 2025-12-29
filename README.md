@@ -1,3 +1,16 @@
+<div align="center">
+  <img src="./banner.png" alt="DartStreamline Banner" width="100%"/>
+</div>
+
+<div align="center">
+
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-View_Site-blue?style=for-the-badge)](https://arz023.github.io/DartStreamLine-professional-dart-file-merger/)
+[![Version](https://img.shields.io/badge/version-v2025.12.29-violet?style=for-the-badge)](https://github.com/ARZ023/DartStreamLine-professional-dart-file-merger)
+[![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
+
+</div>
+
+---
 
 # DartStreamline - Professional Dart File Merger
 
