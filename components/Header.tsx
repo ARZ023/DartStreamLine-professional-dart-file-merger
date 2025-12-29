@@ -23,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({ onReset, isDark, onToggleTheme }
             </h1>
             <div className="flex items-center gap-2 mt-1">
               <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-              <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-bold tracking-widest">v2025.04.1</p>
+              <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase font-bold tracking-widest">v2025.12.29</p>
             </div>
           </div>
         </div>
