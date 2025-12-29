@@ -1,0 +1,5 @@
+
+{
+  "name": "DartStreamline: Professional Dart File Merger",
+  "description": "A robust, developer-first tool for merging multiple Dart files into a single, well-structured, and import-optimized file. Features AST-like analysis, conflict detection, and deterministic merge logic."
+}
