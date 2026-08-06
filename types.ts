@@ -15,6 +15,8 @@ export interface DartImport {
   show?: string[];
   hide?: string[];
   type: 'dart' | 'package' | 'relative';
+  /** Flagged true if this import appears unreferenced in any merged file body */
+  isUnused?: boolean;
 }
 
 export interface DartDeclaration {
@@ -22,14 +24,32 @@ export interface DartDeclaration {
   name: string;
   content: string;
   sourceFile: string;
+  /** Annotations found immediately before this declaration, e.g. ['@immutable', '@override'] */
+  annotations: string[];
+}
+
+export interface MergeStats {
+  totalInputFiles: number;
+  totalInputLines: number;
+  totalInputBytes: number;
+  outputLines: number;
+  outputBytes: number;
+  importsDeduped: number;
+  unusedImports: number;
+  conflictsAutoResolved: number;
 }
 
 export interface AnalysisResult {
   imports: DartImport[];
   declarations: DartDeclaration[];
   conflicts: Conflict[];
-  /** Human-readable warnings (part directives, part-of strips, etc.) */
   warnings: string[];
+  /** First `library` directive name found across all files, if any */
+  libraryName?: string;
+  /** Imports that appear to be unreferenced in the merged body */
+  unusedImports: DartImport[];
+  /** Raw import count before deduplication (used for stats) */
+  rawImportCount: number;
 }
 
 export interface Conflict {
@@ -37,6 +57,8 @@ export interface Conflict {
   type: string;
   sources: string[];
   severity: 'error' | 'warning';
+  /** LENIENT-mode rename preview: sourceFile → newSymbolName */
+  renamePreview: Record<string, string>;
 }
 
 export enum MergeMode {
