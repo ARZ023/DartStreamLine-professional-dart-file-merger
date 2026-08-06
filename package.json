@@ -1,12 +1,38 @@
 {
-  "name": "dartstreamline:-professional-dart-file-merger",
+  "name": "dartstreamline-professional-dart-file-merger",
+  "description": "A professional, browser-native tool for Flutter/Dart developers to merge multiple .dart files into one clean, optimized output with smart import deduplication and conflict detection.",
+  "version": "2025.12.29",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "keywords": [
+    "dart",
+    "flutter",
+    "file-merger",
+    "dart-tools",
+    "developer-tools",
+    "import-deduplication",
+    "flutter-tools",
+    "dart-parser",
+    "code-merger",
+    "local-first"
+  ],
+  "homepage": "https://arz023.github.io/DartStreamLine-professional-dart-file-merger/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ARZ023/DartStreamLine-professional-dart-file-merger.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ARZ023/DartStreamLine-professional-dart-file-merger/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "react": "^19.2.3",
