@@ -9,6 +9,8 @@ export interface DartFile {
 export interface DartImport {
   raw: string;
   path: string;
+  /** Whether this is an `import` or `export` directive */
+  directive: 'import' | 'export';
   alias?: string;
   show?: string[];
   hide?: string[];
@@ -26,6 +28,7 @@ export interface AnalysisResult {
   imports: DartImport[];
   declarations: DartDeclaration[];
   conflicts: Conflict[];
+  /** Human-readable warnings (part directives, part-of strips, etc.) */
   warnings: string[];
 }
 

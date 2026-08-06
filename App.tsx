@@ -56,7 +56,7 @@ const App: React.FC = () => {
 
   const runMerge = useCallback(() => {
     if (!analysis) return;
-    const code = DartParser.merge(files, analysis);
+    const code = DartParser.merge(files, analysis, mergeMode);
     setMergedCode(code);
     
     setTimeout(() => {

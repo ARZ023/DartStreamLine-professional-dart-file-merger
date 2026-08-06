@@ -47,6 +47,21 @@ const AnalysisPanel: React.FC<Props> = ({ analysis, mergeMode, onSetMergeMode, o
             </div>
           </div>
 
+          {/* Warnings Section — part / part of notices */}
+          {analysis.warnings.length > 0 && (
+            <div>
+              <h3 className="text-sm font-black text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4">Part Directive Warnings</h3>
+              <div className="space-y-3">
+                {analysis.warnings.map((warn, i) => (
+                  <div key={i} className="p-4 rounded-2xl border bg-yellow-500/5 border-yellow-500/20 flex gap-3 items-start">
+                    <div className="mt-0.5 w-2 h-2 rounded-full bg-yellow-400 flex-shrink-0" />
+                    <p className="text-xs text-yellow-700 dark:text-yellow-300 leading-relaxed">{warn}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Conflict Section */}
           <div>
             <div className="flex items-center justify-between mb-4">
@@ -54,12 +69,12 @@ const AnalysisPanel: React.FC<Props> = ({ analysis, mergeMode, onSetMergeMode, o
                 System Diagnostics
               </h3>
             </div>
-            
+
             {analysis.conflicts.length > 0 ? (
               <div className="space-y-3">
                 {analysis.conflicts.map((conflict, i) => (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     className={`p-5 rounded-2xl border transition-all hover:translate-x-1 ${conflict.severity === 'error' ? 'bg-red-500/5 border-red-500/20' : 'bg-orange-500/5 border-orange-500/20'}`}
                   >
                     <div className="flex justify-between items-center">
@@ -78,6 +93,11 @@ const AnalysisPanel: React.FC<Props> = ({ analysis, mergeMode, onSetMergeMode, o
                         <span key={j} className="text-[10px] bg-gray-100 dark:bg-white/5 px-2.5 py-1 rounded-full border border-gray-200 dark:border-white/5 text-gray-600 dark:text-gray-300 font-medium">{src}</span>
                       ))}
                     </div>
+                    {conflict.severity === 'warning' && (
+                      <p className="mt-3 text-[10px] text-orange-400 dark:text-orange-300 font-medium">
+                        LENIENT mode will auto-rename occurrences after the first as <code className="font-mono">{conflict.name}_{'<filename>'}</code>
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>
@@ -100,19 +120,26 @@ const AnalysisPanel: React.FC<Props> = ({ analysis, mergeMode, onSetMergeMode, o
               <div className="space-y-2">
                 <span className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">Merge Strategy</span>
                 <div className="flex p-1.5 bg-gray-100 dark:bg-[#09090b] rounded-2xl border border-gray-200 dark:border-white/10 shadow-inner">
-                  <button 
+                  <button
                     onClick={() => onSetMergeMode(MergeMode.STRICT)}
+                    title="Blocks merge if any naming conflicts exist. No auto-renaming."
                     className={`px-6 py-2 text-xs font-black rounded-xl transition-all ${mergeMode === MergeMode.STRICT ? 'bg-white text-gray-900 dark:text-black shadow-lg shadow-black/5' : 'text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white'}`}
                   >
                     STRICT
                   </button>
-                  <button 
+                  <button
                     onClick={() => onSetMergeMode(MergeMode.LENIENT)}
+                    title="Auto-renames conflicting symbols with a _filename suffix. Proceeds even with warnings."
                     className={`px-6 py-2 text-xs font-black rounded-xl transition-all ${mergeMode === MergeMode.LENIENT ? 'bg-white text-gray-900 dark:text-black shadow-lg shadow-black/5' : 'text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white'}`}
                   >
                     LENIENT
                   </button>
                 </div>
+                <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1">
+                  {mergeMode === MergeMode.LENIENT
+                    ? '⚡ Conflicting symbols auto-renamed with _filename suffix'
+                    : '🔒 Merge blocked until all naming errors are resolved'}
+                </p>
               </div>
 
               <button
