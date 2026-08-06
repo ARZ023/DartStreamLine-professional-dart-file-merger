@@ -99,14 +99,19 @@ Merged .dart Output
 
 ---
 
-## ⚠️ Known Limitations
+## ✅ Engine Capabilities (v2)
 
-| Limitation | Detail |
-|---|---|
-| **No auto-format** | Output preserves original indentation. Run `dart format` on the result for style consistency. |
-| **Logic conflicts** | Naming collisions are *detected* but not automatically resolved — manual review required. |
-| **`part` directives** | `part` statements are collected and included, but merging `part of` files manually through the tool gives the best results. |
-| **No semantic analysis** | The engine uses structural (text-level) parsing, not a full Dart AST. Complex metaprogramming scenarios may produce unexpected results. |
+> Engine v2 directly addresses the limitations of the original structural parser. The table below reflects the current state after the v2 upgrade.
+
+| Area | Status | Detail |
+|---|---|---|
+| **Output formatting** | ⚡ **Improved** | Output normalizer strips trailing whitespace per line and collapses excess blank lines. For full style enforcement, run `dart format` on the result. |
+| **Logic conflicts** | ✅ **Auto-resolved (LENIENT)** | In **LENIENT mode**, conflicting symbols are automatically renamed with a `_<filename>` suffix and annotated with an inline comment. **STRICT mode** blocks the merge until conflicts are manually resolved. |
+| **`part` directives** | ✅ **Handled** | `part` and `part of` directives are parsed separately. `part of` is stripped from the merged body (preventing double-declaration errors), and **actionable warnings** are shown in the Analysis Hub for every affected file. |
+| **Structural analysis** | ✅ **Improved** | Replaced single-pass regex with a **brace-depth tracker** that accurately identifies top-level declarations only, supporting all modern Dart class modifiers (`abstract`, `sealed`, `base`, `interface`, `final class`). |
+
+> [!NOTE]
+> A full Dart AST (e.g. via `dart analyze` or WASM Dart Analyzer) is not available in the browser without a Dart SDK. Complex metaprogramming scenarios (macros, generated code) should still be reviewed manually after merging.
 
 ---
 
